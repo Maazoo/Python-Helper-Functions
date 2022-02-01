@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import zipfile
 
 def plot_history(history):
 
@@ -30,3 +31,16 @@ def plot_history(history):
     plt.legend()
     plt.title("Accuracy")
 
+
+def unzip_data(filename):
+    """
+    Unzips filename into current working directory
+
+    Args:
+        filname: a filepath to a target zip folder to be unzipped
+
+
+    """
+    zip_ref = zipfile.ZipFile(filename,"r")
+    zip_ref.extractall()
+    zip_ref.close()
