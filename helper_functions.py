@@ -3,6 +3,7 @@ import zipfile
 import os
 import tensorflow as tf
 import datetime
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
 def plot_history(history):
 
@@ -79,3 +80,18 @@ def create_tensorboard_callback(dir_name, experiment_name):
   )
   print(f"Saving TensorBoard log files to: {log_dir}")
   return tensorboard_callback
+
+
+def compute_metrics(y_true,y_pred):
+  """
+  Computes precision, recall, f1 score and accuracy.
+  Args: y_true: ground truth labels
+        y_pred: predicted labels  
+  Returns: results: a dictionary of precision, recall, f1 score and accuracy"""
+  accuracy = accuracy_score(y_true,y_pred)
+  precision, recall, f1, _ = precision_recall_fscore_support(y_true,y_pred,average="weighted")
+  results = {"accuracy":accuracy,
+             "precision":precision,
+             "recall":recall,
+             "f1":f1}
+  return results
